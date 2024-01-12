@@ -33,6 +33,19 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		                   findByProgrammingLanguajeAndFirstName("JAVA", "Danna");
 		System.out.println("----------------");
 		persons3.stream().forEach(person  -> System.out.println(person));
+		System.out.println("----------------");
+		List<Object[]> personsValues = repository.obtenerPersonData();
+		//es una areeglo
+		personsValues.stream().forEach(person -> System.out.println(person[0] + " es experto en " + person[1]));
+		System.out.println("----------------");
+		List<Object[]> personsValuesParam = repository.obtenerPersonData("PHP" ,  "Dario");
+		//es una areeglo
+		personsValuesParam.stream().forEach(person -> System.out.println(person[0] + " es experto en " + person[1]));
+
+	}
+
+	public void list(){
+		
 	}
 
 }
