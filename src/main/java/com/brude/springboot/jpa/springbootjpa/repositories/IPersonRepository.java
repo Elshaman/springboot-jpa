@@ -5,10 +5,20 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.brude.springboot.jpa.springbootjpa.entities.Person;
 import java.util.List;
+import java.util.Optional;
 
 
 //generic del tipo persopn y el tipo de dato de la PK
 public interface IPersonRepository extends CrudRepository<Person , Long> {
+
+    @Query("select p from Person p where p.id = ?1")
+    Optional<Person> findOne(Long id);
+
+    @Query("select p from Person p where p.firstName like %?1%")
+    Optional<Person> findOneLikeName(String name);
+
+    //convencion por defecto
+    Optional<Person> findByFirstNameContaining(String name);
 
     List<Person> findByProgrammingLanguaje(String programmingLanguaje);
 
