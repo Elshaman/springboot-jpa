@@ -30,7 +30,8 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		//list();
 		//findOne();
 		//create();
-		createScan();
+		//createScan();
+		update();
 	
 	}
 
@@ -48,6 +49,42 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		System.out.println(personNew);
 
 		repository.findById(person.getId()).ifPresent(System.out::println);
+	}
+
+
+	@Transactional
+	public void update(){
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("ingrese id de persona a acutalizar");
+		Long id = scanner.nextLong();
+
+		Optional<Person> person = repository.findById(id);
+		if(person.isPresent()){
+			Person p = person.orElseThrow();
+			System.out.println(p);
+			System.out.println("Ingrese el nuevo lenguaje de programacion");
+			String programmingLanguaje = scanner.next();
+			p.setProgrammingLanguaje(programmingLanguaje);
+			//porque save siempre retorna el objeto nuevo
+			Person updPerson = repository.save(p);
+			System.out.println(updPerson);
+		}else{
+			System.out.println("el usuario no existe");
+		}
+
+		/*Optional<Person> person = repository.findById(id);
+		person.ifPresent( p -> {
+			System.out.println(p);
+			System.out.println("Ingrese el nuevo lenguaje de programacion");
+			String programmingLanguaje = scanner.next();
+			p.setProgrammingLanguaje(programmingLanguaje);
+			//porque save siempre retorna el objeto nuevo
+			Person updPerson = repository.save(p);
+			System.out.println(updPerson);
+		});
+		*/
+
+		scanner.close();
 	}
 
 	public void create(){
