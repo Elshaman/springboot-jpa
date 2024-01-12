@@ -1,6 +1,7 @@
 package com.brude.springboot.jpa.springbootjpa;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -21,6 +22,34 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
+		
+		//list();
+		findOne();
+
+	}
+
+	public void findOne(){
+		//maneras validas
+		//Person person = repository.findById(1L).get();
+		//Person person = repository.findById(1L).orElseThrow();
+		
+		//manera con optional
+		/*Person person = null;
+		Optional<Person> optionalPerson = repository.findById(1L);
+		if(optionalPerson.isPresent()){
+			System.out.println(optionalPerson.get());
+		}else{
+			System.out.println("no existe la persona");
+		}*/
+
+		//manera  con lambda
+		//repository.findById(1L).ifPresent(person -> System.out.println(person));
+		//o con metodo de referencia
+		repository.findById(1L).ifPresent(System.out::println);
+		
+	}
+
+	public void list(){
 		//List<Person> persons = (List<Person>) repository.findAll();
 		//convencion sobre codigo
 		List<Person> persons = (List<Person>) repository.findByProgrammingLanguaje("PHP");
@@ -41,11 +70,6 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		List<Object[]> personsValuesParam = repository.obtenerPersonData("PHP" ,  "Dario");
 		//es una areeglo
 		personsValuesParam.stream().forEach(person -> System.out.println(person[0] + " es experto en " + person[1]));
-
-	}
-
-	public void list(){
-		
 	}
 
 }
