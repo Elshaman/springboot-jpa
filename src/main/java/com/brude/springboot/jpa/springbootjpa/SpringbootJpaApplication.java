@@ -24,14 +24,21 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		
 		//list();
-		findOne();
+		//findOne();
+		create();
 
+	}
+
+	public void create(){
+		Person person = new Person(null , "Yessie", "Chaverra", "RUBY");
+		Person personNew = repository.save(person);
 	}
 
 	public void findOne(){
 		
 		//repository.findOneLikeName("Zu").ifPresent(System.out::println);
 		repository.findByFirstNameContaining("Zu").ifPresent(System.out::println);
+		
 	}
 
 	public void list(){
