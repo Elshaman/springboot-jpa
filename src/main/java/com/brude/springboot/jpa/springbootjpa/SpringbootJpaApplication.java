@@ -2,14 +2,18 @@ package com.brude.springboot.jpa.springbootjpa;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.brude.springboot.jpa.springbootjpa.entities.Person;
 import com.brude.springboot.jpa.springbootjpa.repositories.IPersonRepository;
+
+
 
 @SpringBootApplication
 public class SpringbootJpaApplication implements CommandLineRunner{
@@ -25,8 +29,25 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		
 		//list();
 		//findOne();
-		create();
+		//create();
+		createScan();
+	
+	}
 
+	@Transactional
+	public void createScan(){
+		Scanner scanner = new Scanner(System.in);
+		String firstName = scanner.next();
+		String lastName = scanner.next();
+		String programmingLanguaje = scanner.next();
+		scanner.close();
+
+		Person person = new Person(null, firstName, lastName , programmingLanguaje);
+
+		Person personNew = repository.save(person);
+		System.out.println(personNew);
+
+		repository.findById(person.getId()).ifPresent(System.out::println);
 	}
 
 	public void create(){
