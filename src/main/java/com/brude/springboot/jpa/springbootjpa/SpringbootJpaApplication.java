@@ -31,9 +31,37 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		//findOne();
 		//create();
 		//createScan();
-		update();
+		//update();
+		//delete2();
+		customizedQueries();
 	
 	}
+
+
+	@Transactional(readOnly= true)
+	public void customizedQueries(){
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("===============consulta solo nombre por id===========");
+		System.out.println("Ingrese id");
+		Long id = scanner.nextLong();
+		scanner.close();
+		String name = repository.getNameById(id);
+		System.out.println(name);
+		System.out.println("===============consulta full nombre por id===========");
+		String fullname = repository.getFullNameById(id);
+		System.out.println(fullname);
+		System.out.println("===============consulta campos personalizados por id===========");
+		Optional<Object[]> optionalReg = repository.obtenerPersonDataFullById(id);
+		if(optionalReg.isPresent()){
+			Object[] personalReg = optionalReg.get();
+			System.out.println("id" + personalReg[0] + ":nombre" + personalReg[1]);
+		}
+		
+		System.out.println("===============consulta campos personalizados lista===========");
+		List<Object[]> regs = repository.obtenerPersonDataFullList();
+		regs.forEach(personReg -> System.out.println("id" + personReg[0] + ":nombre" + personReg[1]));
+	}	
+
 
 	@Transactional
 	public void createScan(){
@@ -51,6 +79,34 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		repository.findById(person.getId()).ifPresent(System.out::println);
 	}
 
+	@Transactional
+	public void delete(){
+		repository.findAll().forEach(System.out::println);
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("ingrese id a eliminar");
+		Long id = scanner.nextLong();
+
+		repository.deleteById(id);
+		repository.findAll().forEach(System.out::println);
+		scanner.close();
+	}
+
+	@Transactional
+	public void delete2(){
+		repository.findAll().forEach(System.out::println);
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("ingrese id a eliminar");
+		Long id = scanner.nextLong();
+
+		Optional<Person> optionalPerson = repository.findById(id);
+		optionalPerson.ifPresentOrElse(
+			repository::delete, 
+			() -> System.out.println("No se encuentra la persona a eliminar"));
+
+	
+		repository.findAll().forEach(System.out::println);
+		scanner.close();
+	}
 
 	@Transactional
 	public void update(){
