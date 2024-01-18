@@ -38,9 +38,26 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		//customizedDto();
 		//customizedDistinct();
 		//customizedDistinctLanguajeProgramming();
-		customizedDistinctCount();
+		//customizedDistinctCount();
+		//customizedConcat();
+		customizedUpper();
 	
 	}
+
+	@Transactional(readOnly = true)
+	public void customizedUpper(){
+		System.out.println("consulta por nombres de personas");
+		List<String> list = repository.findFullNameUpper();
+		list.forEach(System.out::println);
+	}
+
+	@Transactional(readOnly = true)
+	public void customizedConcat(){
+		System.out.println("consulta por nombres de personas");
+		List<String> list = repository.findFullNameConcat();
+		list.forEach(System.out::println);
+	}
+
 
 	@Transactional(readOnly = true)
 	public void customizedDistinct(){

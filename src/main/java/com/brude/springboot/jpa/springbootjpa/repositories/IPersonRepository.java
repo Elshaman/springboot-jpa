@@ -12,6 +12,16 @@ import java.util.Optional;
 //generic del tipo persopn y el tipo de dato de la PK
 public interface IPersonRepository extends CrudRepository<Person , Long> {
 
+    @Query("select upper( p.firstName || ' ' || p.lastName)  from Person p")
+    List<String> findFullNameUpper();
+
+    @Query("select lower(p.firstName || ' ' || p.lastName) from Person p")
+    List<String> findFullNameLower();
+
+    //@Query("select concat(p.firstName, ' ', p.lastName) as fullname from Person p")
+    @Query("select p.firstName || ' ' || p.lastName as fullname from Person p")
+    List<String> findFullNameConcat();
+
     @Query("select count(distinct(p.programmingLanguaje)) from Person p")
     Long findAllPLanguajesDistinctCount();
 
