@@ -3,6 +3,7 @@ package com.brude.springboot.jpa.springbootjpa.repositories;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import com.brude.springboot.jpa.springbootjpa.dtos.PersonDto;
 import com.brude.springboot.jpa.springbootjpa.entities.Person;
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +11,9 @@ import java.util.Optional;
 
 //generic del tipo persopn y el tipo de dato de la PK
 public interface IPersonRepository extends CrudRepository<Person , Long> {
+
+    @Query("select new com.brude.springboot.jpa.springbootjpa.dtos.PersonDto(p.firstName, p.lastName) from Person p")
+    List<PersonDto> findAllPersonDto();
 
     @Query("select new Person(p.firstName, p.lastName) from Person p")
     List<Person> findAllClassPerson();

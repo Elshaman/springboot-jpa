@@ -10,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.brude.springboot.jpa.springbootjpa.dtos.PersonDto;
 import com.brude.springboot.jpa.springbootjpa.entities.Person;
 import com.brude.springboot.jpa.springbootjpa.repositories.IPersonRepository;
 
@@ -33,8 +34,16 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		//createScan();
 		//update();
 		//delete2();
-		customizedQuerie2();
+		//customizedQuerie2();
+		customizedDto();
 	
+	}
+
+	@Transactional(readOnly= true)
+	public void customizedDto(){
+		System.out.println("consulta que puebla y devuelve objeto dto");
+		List<PersonDto> personDtos = repository.findAllPersonDto();
+		personDtos.forEach(System.out::println);
 	}
 
 
