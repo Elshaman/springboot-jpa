@@ -37,7 +37,8 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		//customizedQuerie2();
 		//customizedDto();
 		//customizedDistinct();
-		customizedDistinctLanguajeProgramming();
+		//customizedDistinctLanguajeProgramming();
+		customizedDistinctCount();
 	
 	}
 
@@ -46,6 +47,13 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		System.out.println("consulta por nombres de personas");
 		List<String> list = repository.findAllNamesDistinct();
 		list.forEach(System.out::println);
+	}
+
+	@Transactional(readOnly = true)
+	public void customizedDistinctCount(){
+		System.out.println("consulta por lenguajes conteo");
+		Long conteo = repository.findAllPLanguajesDistinctCount();
+		System.out.println("Numero de lenguajes: " + conteo);
 	}
 
 	@Transactional(readOnly = true)
