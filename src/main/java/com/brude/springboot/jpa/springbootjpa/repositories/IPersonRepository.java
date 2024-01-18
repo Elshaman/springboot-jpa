@@ -11,6 +11,9 @@ import java.util.Optional;
 //generic del tipo persopn y el tipo de dato de la PK
 public interface IPersonRepository extends CrudRepository<Person , Long> {
 
+    @Query("select new Person(p.firstName, p.lastName) from Person p")
+    List<Person> findAllClassPerson();
+
     @Query("select p.firstName from Person p where p.id=?1")
     String getNameById(Long id);
 
@@ -22,6 +25,9 @@ public interface IPersonRepository extends CrudRepository<Person , Long> {
 
     @Query("select p from Person p where p.firstName like %?1%")
     Optional<Person> findOneLikeName(String name);
+
+    @Query("select p, p.programmingLanguaje from Person p")
+    List <Object[]> findAllMixPerson();
 
     @Query("select p.id, p.firstName, p.lastName, p.programmingLanguaje from Person p")
     List <Object[]> obtenerPersonDataFullList();

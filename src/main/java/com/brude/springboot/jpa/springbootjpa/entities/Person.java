@@ -35,6 +35,13 @@ public class Person {
             this.programmingLanguaje = programmingLanguaje;
         }
 
+        
+
+
+        public Person(String firstName, String lastName) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+        }
 
         public Long getId() {
             return id;
