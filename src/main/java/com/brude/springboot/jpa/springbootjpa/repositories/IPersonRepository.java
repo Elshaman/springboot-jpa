@@ -12,6 +12,12 @@ import java.util.Optional;
 //generic del tipo persopn y el tipo de dato de la PK
 public interface IPersonRepository extends CrudRepository<Person , Long> {
 
+    @Query("select distinct(p.programmingLanguaje) from Person p")
+    List<String> findAllPLanguajesDistinct();
+
+    @Query("select distinct(p.firstName) from Person p")
+    List<String> findAllNamesDistinct();
+
     @Query("select new com.brude.springboot.jpa.springbootjpa.dtos.PersonDto(p.firstName, p.lastName) from Person p")
     List<PersonDto> findAllPersonDto();
 

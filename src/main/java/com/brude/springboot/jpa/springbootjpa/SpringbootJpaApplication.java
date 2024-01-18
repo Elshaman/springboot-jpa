@@ -35,8 +35,24 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		//update();
 		//delete2();
 		//customizedQuerie2();
-		customizedDto();
+		//customizedDto();
+		//customizedDistinct();
+		customizedDistinctLanguajeProgramming();
 	
+	}
+
+	@Transactional(readOnly = true)
+	public void customizedDistinct(){
+		System.out.println("consulta por nombres de personas");
+		List<String> list = repository.findAllNamesDistinct();
+		list.forEach(System.out::println);
+	}
+
+	@Transactional(readOnly = true)
+	public void customizedDistinctLanguajeProgramming(){
+		System.out.println("consulta por lenguajes distinct");
+		List<String> list = repository.findAllPLanguajesDistinct();
+		list.forEach(System.out::println);
 	}
 
 	@Transactional(readOnly= true)
@@ -169,6 +185,7 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 	public void create(){
 		Person person = new Person(null , "Yessie", "Chaverra", "RUBY");
 		Person personNew = repository.save(person);
+		System.out.println(personNew);
 	}
 
 	public void findOne(){
