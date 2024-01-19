@@ -12,6 +12,12 @@ import java.util.Optional;
 //generic del tipo persopn y el tipo de dato de la PK
 public interface IPersonRepository extends CrudRepository<Person , Long> {
 
+    @Query("select p from Person p where p.lastName between 'T' and 'X'")
+    List<Person> findAllBetwwenLastName();
+
+    @Query("select p from Person p where p.id between 2 and 5")
+    List<Person> findAllBetweenId();
+
     @Query("select upper( p.firstName || ' ' || p.lastName)  from Person p")
     List<String> findFullNameUpper();
 
