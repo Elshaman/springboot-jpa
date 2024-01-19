@@ -41,10 +41,17 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		//customizedDistinctCount();
 		//customizedConcat();
 		//customizedBetween();
-		customizedBetweenLastName();
+		customizedBetweenLastNameParam();
 	
 	}
 
+
+	@Transactional(readOnly = true)
+	public void customizedBetweenLastNameParam(){
+		System.out.println("consulta por id between");
+		List<Person> list = repository.findAllBetwwenLastName("T" , "X");
+		list.forEach(System.out::println);
+	}
 
 	@Transactional(readOnly = true)
 	public void customizedBetweenLastName(){
