@@ -12,6 +12,16 @@ import java.util.Optional;
 //generic del tipo persopn y el tipo de dato de la PK
 public interface IPersonRepository extends CrudRepository<Person , Long> {
 
+    @Query("select max(length(p.lastName)) from Person p")
+    public Integer getMaxLength();
+
+    @Query("select min(length(p.lastName)) from Person p")
+    public Integer getMinLength();
+
+
+    @Query("select p.firstName, length(p.firstName) FROM Person p")
+    public List<Object[]> getPersonNameLength();
+
     @Query("select count(p) from Person p")
     Long totalPerson();
 

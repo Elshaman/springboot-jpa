@@ -44,8 +44,31 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		//BetweenConvencionNames();
 		//BetweenConvencionNamesConOrder();
 		//prueba();
-		Agregados();
+		//Agregados();
+		//longitud();
+		minMaxLong();
 	
+	}
+
+	@Transactional(readOnly = true)
+	public void minMaxLong(){
+		System.out.println("===minima long====");
+		System.out.println(repository.getMinLength());
+		System.out.println("===maxima long====");
+		System.out.println(repository.getMaxLength());
+
+	}
+
+	@Transactional(readOnly = true)
+	public void longitud(){
+		System.out.println("consulta por nombre y su largo");
+		List<Object[]> regs = repository.getPersonNameLength();
+		regs.forEach( reg-> {
+			String name = (String) reg[0];
+			Integer longitud = (Integer) reg[1];
+			System.out.println("nombre: " + name + ", Longitud: " + longitud);
+
+		});
 	}
 
 
