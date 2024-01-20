@@ -47,8 +47,24 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		//Agregados();
 		//longitud();
 		//minMaxLong();
-		resumenFuncionesAgregadas();
+		//resumenFuncionesAgregadas();
+		subQueries();
 	
+	}
+
+	@Transactional(readOnly = true)
+	public void subQueries(){
+		System.out.println("=================largo del nombre mas acorto=========");
+		List<Object[]> records = repository.getShorterName();
+		records.forEach(reg -> {
+			String name = (String) reg[0];
+			Integer longitud = (Integer) reg[1];
+			System.out.println("nombre mas acorto =" + name + ", longitud =  " + longitud);
+		});
+
+		System.out.println("=================largo del nombre mas acorto=========");
+		Optional<Person> optionalPerson = repository.getUltimoRegistro();
+		optionalPerson.ifPresent(System.out::println);
 	}
 
 	@Transactional(readOnly = true)
