@@ -12,6 +12,9 @@ import java.util.Optional;
 //generic del tipo persopn y el tipo de dato de la PK
 public interface IPersonRepository extends CrudRepository<Person , Long> {
 
+    @Query("SELECT p from Person p where p.id not in ?1")
+    public List<Person> getPersonsById(List<Long> ids);
+
     @Query("SELECT p.lastName, length(p.lastName) from Person p where length(p.lastName)=(select min(length(p.lastName)) from Person p)")
     public List<Object[]> getShorterName();
 
