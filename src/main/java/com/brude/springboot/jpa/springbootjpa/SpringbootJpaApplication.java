@@ -33,7 +33,7 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		//findOne();
 		//create();
 		//createScan();
-		//update();
+		update();
 		//delete2();
 		//customizedQuerie2();
 		//customizedDto();
@@ -50,7 +50,7 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		//minMaxLong();
 		//resumenFuncionesAgregadas();
 		//subQueries();
-		whereIn();
+		//whereIn();
 	
 	}
 

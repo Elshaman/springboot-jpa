@@ -1,15 +1,25 @@
 package com.brude.springboot.jpa.springbootjpa.entities;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "persons")
 public class Person {
+
+        @Column(name = "created_at")
+        private LocalDateTime createdAt;
+
+        @Column(name = "updated_at")
+        private LocalDateTime updatedAt;
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +45,17 @@ public class Person {
             this.programmingLanguaje = programmingLanguaje;
         }
 
-        
+        @PrePersist
+        public void prePersist(){
+            System.out.println("Evento del ciclo de vida del entity pre persist");
+            this.createdAt = LocalDateTime.now();
+        }
+
+        @PreUpdate
+        public void preUpdate(){
+            System.out.println("Evento del ciclo de vida del entity pre upd");
+            this.updatedAt = LocalDateTime.now();
+        }
 
 
         public Person(String firstName, String lastName) {
@@ -71,7 +91,7 @@ public class Person {
         @Override
         public String toString() {
             return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", programmingLanguaje="
-                    + programmingLanguaje + "]";
+                    + programmingLanguaje + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
         }
 
         
