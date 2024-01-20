@@ -12,11 +12,22 @@ import java.util.Optional;
 //generic del tipo persopn y el tipo de dato de la PK
 public interface IPersonRepository extends CrudRepository<Person , Long> {
 
-    List<Person> findByIdBetween(Long id1, Long id2);
-    List<Person> findByLastNameBetween(String name1 , String name2String);
 
-    @Query("select p from Person p where p.lastName between ?1 and ?2")
-    List<Person> findAllBetwwenLastName(String c1 , String c2 );
+
+    @Query("SELECT p FROM Person p order by p.firstName desc, p.lastName desc")
+    List <Person> getAllOrdered();
+
+    //y su equivalente
+    List <Person> findAllByOrderByFirstNameDescLastNameAsc();
+
+    List<Person> findByIdBetween(Long id1, Long id2);
+    List<Person> findByLastNameBetween(String name1 , String name2);
+    //order by convencion de nombres
+    List<Person> findByLastNameBetweenOrderByIdDescFirstNameAsc(String name1 , String name2);
+
+    //order by con query
+    @Query("select p from Person p where p.lastName between ?1 and ?2 order by p.firstName desc")
+    List<Person> findAllBetweenLastName(String c1 , String c2 );
 
     @Query("select p from Person p where p.lastName between 'T' and 'X'")
     List<Person> findAllBetwwenLastName();

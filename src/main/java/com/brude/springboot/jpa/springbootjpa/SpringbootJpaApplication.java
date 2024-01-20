@@ -41,8 +41,23 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		//customizedDistinctCount();
 		//customizedConcat();
 		//customizedBetween();
-		BetweenConvencionNames();
+		//BetweenConvencionNames();
+		//BetweenConvencionNamesConOrder();
+		prueba();
 	
+	}
+
+	@Transactional(readOnly = true)
+	public void prueba(){
+		List <Person> persons = repository.findAllByOrderByFirstNameDescLastNameAsc();
+		persons.forEach(System.out::println);
+	}
+
+	@Transactional(readOnly = true)
+	public void BetweenConvencionNamesConOrder(){
+		System.out.println("consulta por id between con order");
+		List<Person> list = repository.findByLastNameBetweenOrderByIdDescFirstNameAsc("T" , "X");
+		list.forEach(System.out::println);
 	}
 
 	@Transactional(readOnly = true)
@@ -55,7 +70,7 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 	@Transactional(readOnly = true)
 	public void customizedBetweenLastNameParam(){
 		System.out.println("consulta por id between");
-		List<Person> list = repository.findAllBetwwenLastName("T" , "X");
+		List<Person> list = repository.findAllBetweenLastName("T" , "X");
 		list.forEach(System.out::println);
 	}
 
