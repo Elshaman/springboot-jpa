@@ -46,8 +46,21 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		//prueba();
 		//Agregados();
 		//longitud();
-		minMaxLong();
+		//minMaxLong();
+		resumenFuncionesAgregadas();
 	
+	}
+
+	@Transactional(readOnly = true)
+	public void resumenFuncionesAgregadas(){
+		System.out.println("resumen funciones agregadas");
+		Object[] resumeReg = (Object[]) repository.getResumeAggregationFunctions();
+		System.out.println("min: " + resumeReg[0] + 
+		                   ", max: " + resumeReg[1] + 
+						   ",sum: " + resumeReg[2] +
+						   ",avg: " + resumeReg[3] + 
+						   ",count: " + resumeReg[4] );
+		
 	}
 
 	@Transactional(readOnly = true)

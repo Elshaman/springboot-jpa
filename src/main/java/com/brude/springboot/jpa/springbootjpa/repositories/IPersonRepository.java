@@ -12,6 +12,9 @@ import java.util.Optional;
 //generic del tipo persopn y el tipo de dato de la PK
 public interface IPersonRepository extends CrudRepository<Person , Long> {
 
+    @Query("select min(p.id), max(p.id), sum(p.id) , avg(length(p.firstName)) , count(id) from Person p")
+    public Object getResumeAggregationFunctions();
+
     @Query("select max(length(p.lastName)) from Person p")
     public Integer getMaxLength();
 
