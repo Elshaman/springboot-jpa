@@ -31,9 +31,9 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		
 		//list();
 		//findOne();
-		//create();
+		create();
 		//createScan();
-		update();
+		//update();
 		//delete2();
 		//customizedQuerie2();
 		//customizedDto();
