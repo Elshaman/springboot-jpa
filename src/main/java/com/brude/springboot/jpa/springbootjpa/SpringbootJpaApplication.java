@@ -43,8 +43,23 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		//customizedBetween();
 		//BetweenConvencionNames();
 		//BetweenConvencionNamesConOrder();
-		prueba();
+		//prueba();
+		Agregados();
 	
+	}
+
+
+	@Transactional(readOnly = true)
+	public void Agregados(){
+		Long conteo = repository.totalPerson();
+		Long min = repository.minId();
+		Long max = repository.maxId();
+		System.out.println("======count====");
+		System.out.println("num opersonas: " + conteo);
+		System.out.println("======min=====");
+		System.out.println("min id: " + min);
+		System.out.println("======max=====");
+		System.out.println("max id: " + max);
 	}
 
 	@Transactional(readOnly = true)
